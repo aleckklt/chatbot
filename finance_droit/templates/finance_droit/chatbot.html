@@ -40,65 +40,73 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const form = document.getElementById("chat-form");
-    const input = document.getElementById("user-input");
-    const chatBox = document.getElementById("chat-box");
-    function addMessage(sender, text) {
-      const msgDiv = document.createElement("div");
-      msgDiv.classList.add("my-2");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
 
-      if (sender === "user") {
-        msgDiv.innerHTML = `
-          <div class="d-flex justify-content-end">
-            <div class="bg-success text-white rounded p-2" style="max-width: 75%;">
-              <strong>Vous :</strong> ${text}
-            </div>
-          </div>
-        `;
-      } else {
-        msgDiv.innerHTML = `
-          <div class="d-flex justify-content-start">
-            <div class="bg-light border rounded p-2" style="max-width: 75%;">
-              <strong>IA :</strong> ${text}
-            </div>
-          </div>
-        `;
-      }
+  function addMessage(sender, text, id = null) {
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("my-2");
+    if (id) msgDiv.dataset.id = id;
 
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
+    if (sender === "user") {
+      msgDiv.innerHTML = `
+        <div class="d-flex justify-content-end">
+          <div class="bg-success text-white rounded p-2" style="max-width: 75%;">
+            <strong>Vous :</strong> ${text}
+          </div>
+        </div>
+      `;
+    } else {
+      msgDiv.innerHTML = `
+        <div class="d-flex justify-content-start">
+          <div class="bg-light border rounded p-2" style="max-width: 75%;">
+            <strong>IA :</strong> ${text}
+          </div>
+        </div>
+      `;
     }
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
 
-      const userMessage = input.value.trim();
-      if (!userMessage) return;
+    chatBox.appendChild(msgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    return msgDiv;
+  }
 
-      addMessage("user", userMessage);
-      input.value = "";
-      addMessage("bot", "<i>Analyse en cours...</i>");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      try {
-        const response = await fetch("/api/chat/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMessage }),
-        });
+    const userMessage = input.value.trim();
+    if (!userMessage) return;
 
-        const data = await response.json();
-        chatBox.removeChild(chatBox.lastElementChild);
+    addMessage("user", userMessage);
+    input.value = "";
+    const messageId = `msg-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const loadingMsg = addMessage("bot", "<i>Analyse en cours...</i>", messageId);
 
-        if (data.reply) {
-          addMessage("bot", data.reply);
-        } else {
-          addMessage("bot", "Erreur : réponse vide du serveur.");
-        }
-      } catch (error) {
-        chatBox.removeChild(chatBox.lastElementChild);
-        addMessage("bot", "Erreur de connexion au serveur.");
-        console.error("Erreur :", error);
+    try {
+      const response = await fetch("/api/chat/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const data = await response.json();
+      const loadingElem = chatBox.querySelector(`[data-id="${messageId}"]`);
+      if (loadingElem) loadingElem.remove();
+
+      if (data.reply) {
+        addMessage("bot", data.reply);
+      } else {
+        addMessage("bot", "Erreur : réponse vide du serveur.");
       }
-    });
-  </script>
+    } catch (error) {
+      const loadingElem = chatBox.querySelector(`[data-id="${messageId}"]`);
+      if (loadingElem) loadingElem.remove();
+
+      addMessage("bot", "Erreur de connexion au serveur.");
+      console.error("Erreur :", error);
+    }
+  });
+</script>
 </body>
 </html>
