@@ -1,70 +1,139 @@
 from ollama import Client
+import requests
+from bs4 import BeautifulSoup
+import re
+from datetime import datetime
 
 client = Client(host='http://localhost:11434')
 
-KNOWLEDGE_BASE = {
-    "droit_consommation": [
-        "https://www.service-public.fr/particuliers/vosdroits/F1902",
-        "https://www.economie.gouv.fr/dgccrf/garantie-legale-de-conformite",
-        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000032038849/"
+KNOWLEDGE_PAGES = {
+    "droit_international": [
+        "https://www.un.org/fr/",
+        "https://www.ohada.org/",
+        "https://www.wto.org/",
+        "https://www.ilo.org/global/lang--fr/index.htm",
+        "https://eur-lex.europa.eu/",
     ],
-    "droit_travail": [
-        "https://www.service-public.fr/particuliers/vosdroits/F2240",
-        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006900879/",
-        "https://www.service-public.fr/particuliers/vosdroits/F41571"
+    "finance_internationale": [
+        "https://www.imf.org/fr/Home",
+        "https://www.worldbank.org/fr",
+        "https://www.bis.org/",
+        "https://www.sec.gov/",
+        "https://www.ecb.europa.eu/home/html/index.fr.html",
     ],
-    "finance_credit": [
-        "https://www.banque-france.fr/credits-et-endettement",
-        "https://www.amf-france.org/espace-epargnants/arbitrer-mes-placements/diversifier-son-epargne",
-        "https://www.service-public.fr/particuliers/vosdroits/N34"
+    "droit_pays": [
+        "https://www.legifrance.gouv.fr/",
+        "https://www.gouv.bj/",
+        "https://www.usa.gov/",
+        "https://www.canada.ca/fr.html",
+        "https://www.gov.uk/",
+        "https://www.china.org.cn/",
     ],
-    "fiscalite": [
-        "https://www.impots.gouv.fr/portail/",
-        "https://www.service-public.fr/particuliers/vosdroits/N411",
-        "https://www.impots.gouv.fr/particulier/le-pfu-ou-flat-tax"
+    "finance_pays": [
+        "https://www.finances.gouv.fr/",
+        "https://www.finances.gouv.bj/",
+        "https://www.federalreserve.gov/",
+        "https://www.bankofcanada.ca/",
+        "https://www.bceao.int/",
     ],
-    "epargne": [
-        "https://www.amf-france.org/",
-        "https://www.service-public.fr/particuliers/vosdroits/N461",
-        "https://www.banque-france.fr/epargne"
-    ],
-    "protection_donnees": [
+    "numerique_droit": [
+        "https://www.itu.int/",
+        "https://www.wipo.int/portal/fr/",
+        "https://www.ansib.bj/",
         "https://www.cnil.fr/",
-        "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000036750024"
+        "https://www.ftc.gov/",
     ]
 }
 
-def get_relevant_knowledge(user_message):
-    relevant_urls = []
-    user_lower = user_message.lower()
-    if any(word in user_lower for word in ['rétractation', 'consommateur', 'garantie', 'achat']):
-        relevant_urls.extend(KNOWLEDGE_BASE['droit_consommation'][:2])
-    
-    if any(word in user_lower for word in ['travail', 'emploi', 'cdi', 'démission']):
-        relevant_urls.extend(KNOWLEDGE_BASE['droit_travail'][:2])
-    
-    if any(word in user_lower for word in ['crédit', 'prêt', 'endettement', 'banque']):
-        relevant_urls.extend(KNOWLEDGE_BASE['finance_credit'][:2])
-    
-    if any(word in user_lower for word in ['impôt', 'fiscal', 'taxe', 'déclaration']):
-        relevant_urls.extend(KNOWLEDGE_BASE['fiscalite'][:2])
-    
-    if any(word in user_lower for word in ['épargne', 'placement', 'investissement']):
-        relevant_urls.extend(KNOWLEDGE_BASE['epargne'][:2])
-    
-    if any(word in user_lower for word in ['données', 'rgpd', 'vie privée']):
-        relevant_urls.extend(KNOWLEDGE_BASE['protection_donnees'][:2])
+def smart_scrape_website(url):
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(url, headers=headers, timeout=10)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        main_content = (soup.find('main') or 
+                       soup.find('article') or 
+                       soup.find('div', class_=re.compile('content|main|article')) or
+                       soup.find('body'))
+        
+        if main_content:
+            for element in main_content(["script", "style", "nav", "header", "footer", "aside"]):
+                element.decompose()
+            text = main_content.get_text()
+        else:
+            text = soup.get_text()
+        
+        lines = (line.strip() for line in text.splitlines())
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        clean_text = ' '.join(chunk for chunk in chunks if chunk)
+        
+        return clean_text[:2000]
+        
+    except Exception as e:
+        return ""
 
+def get_smart_knowledge(user_message):
+    user_lower = user_message.lower()
+    relevant_urls = []
+    
+    if any(word in user_lower for word in ['droit', 'loi', 'juridique', 'legal']):
+        relevant_urls.extend(KNOWLEDGE_PAGES['droit_international'][:2])
+    
+    if any(word in user_lower for word in ['finance', 'économique', 'banque', 'investissement', 'crédit']):
+        relevant_urls.extend(KNOWLEDGE_PAGES['finance_internationale'][:2])
+    
+    if any(word in user_lower for word in ['numérique', 'digital', 'internet', 'cyber', 'technologie']):
+        relevant_urls.extend(KNOWLEDGE_PAGES['numerique_droit'][:2])
+    
+    if any(word in user_lower for word in ['france', 'français']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][0], KNOWLEDGE_PAGES['finance_pays'][0]])
+    
+    if any(word in user_lower for word in ['bénin', 'benin']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][1], KNOWLEDGE_PAGES['finance_pays'][1]])
+    
+    if any(word in user_lower for word in ['usa', 'états-unis', 'américain']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][2], KNOWLEDGE_PAGES['finance_pays'][2]])
+    
+    if any(word in user_lower for word in ['canada', 'canadien']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][3], KNOWLEDGE_PAGES['finance_pays'][3]])
+    
+    if any(word in user_lower for word in ['uk', 'royaume-uni', 'britannique']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][4], KNOWLEDGE_PAGES['finance_pays'][3]])
+    
+    if any(word in user_lower for word in ['chine', 'chinois']):
+        relevant_urls.extend([KNOWLEDGE_PAGES['droit_pays'][5], KNOWLEDGE_PAGES['finance_internationale'][0]])
+    
+    if not relevant_urls:
+        relevant_urls = KNOWLEDGE_PAGES['droit_international'][:1] + KNOWLEDGE_PAGES['finance_internationale'][:1]
+    
     return list(set(relevant_urls))[:3]
 
 def ask_ollama(prompt):
-    relevant_urls = get_relevant_knowledge(prompt)
+    relevant_urls = get_smart_knowledge(prompt)
     
-    if relevant_urls:
-        urls_text = "Sources officielles pertinentes :\n- " + "\n- ".join(relevant_urls)
-        enhanced_prompt = f"{urls_text}\n\nQuestion : {prompt}\n\nRéponds en t'appuyant sur ces sources officielles :"
-    else:
-        enhanced_prompt = prompt
+    web_content = ""
+    for url in relevant_urls:
+        content = smart_scrape_website(url)
+        if content and "Erreur" not in content:
+            web_content += f"\n--- {url} ---\n{content}\n"
+
+    current_date = datetime.now().strftime("%d/%m/%Y")
+    current_year = datetime.now().strftime("%Y")
+    
+    enhanced_prompt = f"""
+**CONTEXTE INTERNATIONAL {current_year} :**
+- Date : {current_date}
+- Organisations : ONU, FMI, Banque Mondiale, OMC, OIT, OHADA, UE
+- Systèmes juridiques : Common Law, Civil Law, Droit Musulman
+- Actualité financière mondiale
+
+**SOURCES CONSULTÉES :**
+{web_content if web_content else "Aucune source spécifique consultée"}
+
+**QUESTION :** {prompt}
+
+**RÉPONSE DIRECTE :**
+"""
     
     response = client.chat(model="llama3", messages=[
         {"role": "system",
