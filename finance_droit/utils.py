@@ -39,7 +39,7 @@ def ask_ollama(prompt):
                     "- Argumenté avec des exemples concrets"
                     "- Clair, professionnel et sans jargon inutile"
                     "- Toujours rédigé en français correct et poli"
-                    "-Si la question est en anglais répondre en anglais"
+                    "-Si la question est en anglais réponds correcement et poliment dans la langue."
                 )
             },
             {"role": "user", "content": prompt},
