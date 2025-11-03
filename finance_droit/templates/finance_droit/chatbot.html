@@ -31,7 +31,7 @@
     <div class="container">
       <form id="chat-form" class="d-flex">
         <input id="user-input" type="text" class="form-control me-2" placeholder="Votre message..." required />
-        <button type="submit" class="btn btn-success">
+        <button id="send-btn" type="submit" class="btn btn-success">
           Envoyer <i class="bi bi-send"></i>
         </button>
       </form>
@@ -43,6 +43,9 @@
   const form = document.getElementById("chat-form");
   const input = document.getElementById("user-input");
   const chatBox = document.getElementById("chat-box");
+  const sendBtn = document.getElementById("send-btn");
+
+  let isWaiting = false;
 
   function addMessage(sender, text, id = null) {
     const msgDiv = document.createElement("div");
@@ -75,11 +78,17 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if (isWaiting) return;
+
     const userMessage = input.value.trim();
     if (!userMessage) return;
 
     addMessage("user", userMessage);
     input.value = "";
+    input.disabled = true;
+    sendBtn.disabled = true;
+    isWaiting = true;
+
     const messageId = `msg-${Date.now()}-${Math.random().toString(16).slice(2)}`;
     const loadingMsg = addMessage("bot", "<i>Analyse en cours...</i>", messageId);
 
@@ -102,11 +111,15 @@
     } catch (error) {
       const loadingElem = chatBox.querySelector(`[data-id="${messageId}"]`);
       if (loadingElem) loadingElem.remove();
-
       addMessage("bot", "Erreur de connexion au serveur.");
       console.error("Erreur :", error);
+    } finally {
+      input.disabled = false;
+      sendBtn.disabled = false;
+      input.focus();
+      isWaiting = false;
     }
   });
-</script>
+  </script>
 </body>
 </html>
