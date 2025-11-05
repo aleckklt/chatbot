@@ -1,39 +1,36 @@
 {
   "nouvelles": [
     {
-      "type": "financier",
-      "titre": "Augmentation des taux d'intérêt de la banque centrale",
-      "source": "Banque Centrale Mondiale",
-      "date": "2025-11-01",
-      "description": "La banque centrale a annoncé une hausse de 0.5% des taux directeurs pour lutter contre l'inflation.",
+      "type": "finance",
+      "source": "",
+      "date": "",
+      "description": "",
       "details": {
-        "taux_directeur_actuel": 4.5,
-        "taux_precedent": 4.0
       }
     },
     {
       "type": "juridique",
-      "titre": "Nouvelle loi sur la protection des données",
-      "source": "Union Européenne",
-      "date": "2025-10-15",
-      "description": "Entrée en vigueur de la nouvelle législation sur la protection des données personnelles des citoyens.",
+      "source": "",
+      "date": "",
+      "description": "",
       "details": {
-        "date_entree_en_vigueur": "2025-10-15",
-        "entites_concernées": ["entreprises", "citoyens", "gouvernement"]
       }
     },
     {
-      "type": "financier",
-      "titre": "Taux de change Euro/Dollar",
-      "source": "Marché des changes",
-      "date": "2025-11-05",
-      "description": "Le taux de change de l'Euro par rapport au Dollar américain.",
+      "type": "finance",
+      "source": "",
+      "date": "",
+      "description": "",
       "details": {
-        "devise_base": "EUR",
-        "devise_quotee": "USD",
-        "taux": 1.085,
-        "date_valeur": "2025-11-05"
       }
+    },
+
+    {
+
+    },
+
+    {
+
     }
   ]
 }
