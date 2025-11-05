@@ -2,35 +2,127 @@
   "nouvelles": [
     {
       "type": "finance",
-      "source": "",
-      "date": "",
-      "description": "",
+      "source": "Arab News / Fitch",
+      "date": "2025-10-21",
+      "description": "Le marché mondial des sukuk ESG (obligations islamiques durables) a atteint un record de 6,5 milliards USD au troisième trimestre 2025, et devrait rester dynamique en 2026.",
       "details": {
-      }
-    },
-    {
-      "type": "juridique",
-      "source": "",
-      "date": "",
-      "description": "",
-      "details": {
+        "montant_q3": "6,5 milliards USD",
+        "montant_annuel": "13,5 milliards USD (à fin Q3)",
+        "zones_implication": ["Golfe", "Asie du Sud-Est", "marchés émergents"],
+        "risques_identifiés": ["volatilité des prix du pétrole", "greenwashing", "exigences de conformité charia"],
+        "source_url": "https://arabnews.fr > fitch"
       }
     },
     {
       "type": "finance",
-      "source": "",
-      "date": "",
-      "description": "",
+      "source": "Arab News / Reuters",
+      "date": "2025-11-04",
+      "description": "Qatar a levé 4 milliards USD sur les marchés de la dette via une émission en deux tranches (1 milliard USD bond 3 ans + 3 milliards USD sukuk 10 ans).",
       "details": {
+        "tranches": [
+          {"montant": "1 milliard USD", "teneur": "3 ans", "écart_taux": "15 pb au-dessus du Trésor US"},
+          {"montant": "3 milliards USD", "teneur": "10 ans", "écart_taux": "20 pb au-dessus du Trésor US"}
+        ],
+        "ordre_de_souscription": "≈ 13,5 milliards USD",
+        "contexte": "Déficit budgétaire Q2 2025 de 757 m riyals (≈208 M USD), hausse des dépenses, prix du pétrole en baisse",
+        "source_url": "https://arabnews.fr"
       }
     },
-
     {
-
+      "type": "finance",
+      "source": "Ministère du Commerce Inde / Livemint",
+      "date": "2025-11-02",
+      "description": "La Inde a vu ses exportations de café atteindre 1,80 milliard USD pour l’exercice 2024-25, soit une croissance de 40,2 % par rapport à 1,28 milliard USD l’an précédent.",
+      "details": {
+        "montant": "1,80 milliard USD",
+        "croissance": "40,2 %",
+        "exercice": "FY 2024-25",
+        "facteurs": ["hausse de la demande mondiale", "diversification liée aux cafés Robusta + Arabica", "positionnement export renforcé"],
+        "source_url": "https://www.livemint.com"
+      }
     },
-
     {
-
+      "type": "finance",
+      "source": "Energy News / Reuters",
+      "date": "2025-09-19",
+      "description": "Angola décidera d’ici novembre 2025 s’il prolonge un contrat de swap total-return de 1 milliard USD avec JPMorgan Chase & Co. ou s’il émet de la dette sur les marchés internationaux.",
+      "details": {
+        "montant_swap": "1 milliard USD",
+        "montant_bonds_garantis": "1,9 milliard USD de bons émis par l’Angola",
+        "délai": "fin de l’année 2025",
+        "critère": "conditions de marché (prix) déterminantes",
+        "source_url": "https://www.reuters.com"
+      }
+    },
+    {
+      "type": "juridique",
+      "source": "United Nations Office of Legal Affairs",
+      "date": "2025-10-27",
+      "description": "L’ouverture de la semaine de rédaction internationale (International Law Week 2025) au United Nations a mis en lumière l’entrée en vigueur prévue de l’accord BBNJ (sur la biodiversité marine au-delà des juridictions nationales) en janvier 2026.",
+      "details": {
+        "événement": "Informal Meeting of Legal Advisers, 27‐28 Oct 2025",
+        "points_clés": ["entrée en vigueur du traité BBNJ en janv. 2026", "renforcement du droit international de l’environnement", "coopération judiciaire et diplomatique accrue"],
+        "source_url": "https://www.un.org"
+      }
+    },
+    {
+      "type": "juridique",
+      "source": "International Law Observer",
+      "date": "2025-10-19",
+      "description": "Une conférence à Londres (5-6 nov 2025) intitulée « The U.S. and International Law in changing times » abordera des thèmes comme souveraineté, droits humains, commerce, IA et organisations internationales.",
+      "details": {
+        "lieu": "Institut des études avancées de Londres / Brunel University",
+        "dates": "5-6 novembre 2025",
+        "thèmes": ["souveraineté étatique", "droits humains", "technologie/IA", "organisations internationales"],
+        "source_url": "https://internationallawobserver.eu"
+      }
+    },
+    {
+      "type": "juridique",
+      "source": "Le Monde",
+      "date": "2025-07-24",
+      "description": "La Cour internationale de Justice (CIJ) a rendu un avis consultatif historique estimant que les États qui ne respectent pas leurs obligations climatiques peuvent commettre un « acte internationalement illicite » et pourraient devoir verser des réparations.",
+      "details": {
+        "date_officielle": "23 juillet 2025",
+        "éléments clés": ["obligation de résultat pour les États", "coopération internationale accrue", "réparation possible pour pays vulnérables"],
+        "source_url": "https://www.lemonde.fr"
+      }
+    },
+    {
+      "type": "juridique",
+      "source": "AP News",
+      "date": "2025-02-07",
+      "description": "La Cour pénale internationale (CPI) a dénoncé les sanctions imposées par les États-Unis à son encontre et a réaffirmé son engagement à poursuivre son travail malgré les pressions.",
+      "details": {
+        "acteur": "CPI",
+        "objet": "sanctions US ciblant la CPI après arrestation de chefs d’État",
+        "implications": ["indépendance de la justice internationale mise à l’épreuve", "solidarité européenne envers la Cour"],
+        "source_url": "https://apnews.com"
+      }
+    },
+    {
+      "type": "juridique",
+      "source": "Law, Justice and Development Week – World Bank",
+      "date": "2025-11-03",
+      "description": "L’événement annuel Law, Justice and Development Week 2025 de la World Bank a pour thème « Innovative Legal Solutions to Development Challenges », réunissant acteurs publics, privés et société civile du 4 au 8 novembre 2025.",
+      "details": {
+        "dates": "4-8 novembre 2025",
+        "thème": "Innovation juridique pour relever les défis du développement",
+        "participants": ["organisations internationales", "secteur privé", "réforme du droit"],
+        "source_url": "https://www.worldbank.org > event"
+      }
+    },
+    {
+      "type": "finance",
+      "source": "Finance @ EU Commission",
+      "date": "2025-03-31",
+      "description": "La Commission européenne propose de maintenir les règles de liquidité actuelles (traitement prudentiel des opérations de financement de titres) pour renforcer les marchés financiers dans l’UE après le 28 juin 2025.",
+      "details": {
+        "mesure": "Prolongation du traitement prudentiel existant relatif aux SF T",
+        "rôle": ["EBA", "European Central Bank"],
+        "obligation": "rapport initial au 31 janvier 2029 puis tous les 5 ans",
+        "source_url": "https://finance.ec.europa.eu"
+      }
     }
   ]
 }

@@ -24,7 +24,7 @@ def search_web_serpapi(query):
 def search_local_knowledge(query, path="knowledge_base.json"):
     try:
         if not os.path.exists(path):
-            print("[INFO] Base de connaissance locale introuvable.")
+            print("Base de connaissance locale introuvable.")
             return None
 
         with open(path, "r", encoding="utf-8") as f:
@@ -37,7 +37,7 @@ def search_local_knowledge(query, path="knowledge_base.json"):
 
         return None
     except Exception as e:
-        print(f"[ERREUR] Impossible de lire la base locale : {e}")
+        print(f"Impossible de lire la base locale : {e}")
         return None
 
 def ask_ollama(prompt):
