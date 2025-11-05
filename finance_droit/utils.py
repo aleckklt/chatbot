@@ -1,13 +1,13 @@
 from ollama import Client
 import requests
 import os
+import json
 from dotenv import load_dotenv
 
 client = Client(host='http://localhost:11434')
 load_dotenv()
 
 def search_web_serpapi(query):
-
     try:
         API_KEY = os.getenv("SERPAPI_KEY")
         url = f"https://serpapi.com/search.json?q={query}&api_key={API_KEY}&hl=fr"
@@ -15,13 +15,39 @@ def search_web_serpapi(query):
         data = response.json()
         results = [r.get("snippet") for r in data.get("organic_results", []) if r.get("snippet")]
         if not results:
-            return "Aucune information récente trouvée sur le web."
+            return None
         return "\n".join(results[:3])
     except Exception as e:
-        return f"Impossible de récupérer les informations sur le web. Erreur: {e}"
+        print(f"[INFO] Impossible de récupérer les informations sur le web : {e}")
+        return None
+
+def search_local_knowledge(query, path="knowledge_base.json"):
+    try:
+        if not os.path.exists(path):
+            print("[INFO] Base de connaissance locale introuvable.")
+            return None
+
+        with open(path, "r", encoding="utf-8") as f:
+            knowledge = json.load(f)
+
+        query_lower = query.lower()
+        for key, content in knowledge.items():
+            if key.lower() in query_lower:
+                return content
+
+        return None
+    except Exception as e:
+        print(f"[ERREUR] Impossible de lire la base locale : {e}")
+        return None
 
 def ask_ollama(prompt):
     web_data = search_web_serpapi(prompt)
+
+    if not web_data:
+        web_data = search_local_knowledge(prompt)
+
+    if not web_data:
+        web_data = "Aucune information trouvée ni sur le web ni dans la base locale."
     context = f"Informations récentes trouvées sur le web :\n{web_data}"
 
     system_prompt = (
