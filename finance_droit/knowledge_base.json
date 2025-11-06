@@ -97,5 +97,49 @@
     ],
     "enjeux": "La législation viserait à améliorer la transparence et l’équité dans l’économie numérique, à protéger les utilisateurs face aux grandes plateformes et à réduire les risques de pratiques abusives en ligne. Les entreprises devront revoir leur UX/UI, leurs contrats, leurs pratiques de marketing numérique.",
     "actualité": "Octobre2025: la consultation publique a recueilli plus de 3000 réponses, ce qui montre l’intérêt pour cette réglementation à venir."
+  },
+
+  "code_numerique_benin_2025": {
+    "titre": "Code du numérique au Bénin : décrets d’application adoptés en juillet 2025",
+    "définition": "Le gouvernement du Bénin a adopté le 2 juillet 2025 huit décrets d’application de la loi «portant Code du numérique». Ces textes règlementaires précisent notamment les conditions d’exercice des prestataires de services d’archivage électronique, et fixent les modalités de mise en œuvre du cadre numérique national.",
+    "points_clés": [
+      "Adoption de huit décrets le 2 juillet 2025 pour compléter la loi du Code du numérique.",
+      "Décret fixant les conditions d’exercice de prestataires de services d’archivage électronique.",
+      "Renforcement de la gouvernance numérique, avec un cadre plus clair pour les acteurs du numérique au Bénin."
+    ],
+    "enjeux": "Cette réforme permet d’instaurer une plus grande sécurité juridique pour les fournisseurs de services numériques au Bénin, tout en favorisant la digitalisation de l’administration et des entreprises. Elle contribue aussi à l’attractivité du pays pour les investissements dans l’économie numérique, en offrant un cadre réglementaire modernisé.",
+    "actualité": "L’adoption des décrets d’application constitue une avancée notable en 2025 sur le front de la régulation numérique au Bénin. :contentReference[oaicite:3]{index=3}",
+    "références": [
+      "«Code du numérique au Bénin: adoption de 8 décrets d’application». Banouto, 2 juillet 2025."
+    ]
+  },
+  "transformation_numerique_benin_2025": {
+    "titre": "Transformation numérique au Bénin : budget & haut débit 2025",
+    "définition": "Le Bénin annonce pour 2025 un budget numérique accru (environ 29milliards de FCFA) consacré aux projets TIC, et un plan de généralisation de l’accès au haut-débit dans les 77 communes du pays.",
+    "points_clés": [
+      "Budget numérique pour 2025 : 29 milliards de FCFA (≈16,4milliards pour la digitalisation) au Bénin.",
+      "Plan de connexion de 18 communes supplémentaires à la fibre optique d’ici mi-2025.",
+      "Objectif : généraliser l’accès au haut débit dans toutes les communes (77) à horizon 2025."
+    ],
+    "enjeux": "L’accès au haut-débit est un pilier de la digitalisation, condition d’accès à l’e-commerce, à l’éducation et aux services en ligne. En dotant le pays d’infrastructures numériques modernes, le Bénin améliore son attractivité, réduit la fracture numérique et pose les bases d’une économie numérique plus robuste.",
+    "actualité": "Annonce faite à la fin de 2024 / début 2025 par le ministère du Numérique : montée du budget numérique et stratégie de fibre optique.",
+    "références": [
+      "«Le Bénin met les bouchées doubles : 29 milliards pour booster le numérique en 2025». AITN, 22 novembre 2024.",
+      "«Haut débit : le Bénin veut généraliser l’accès d’ici 2025». Agence Ecofin, 25 novembre 2024."
+    ]
+  },
+  "liberte_presse_numerique_benin_2025": {
+    "titre": "Liberté de la presse et numérique au Bénin : défis et réforme en 2025",
+    "définition": "En 2025, le Amnesty International et d’autres organisations internationales ont alerté sur des suspensions de médias et comptes en ligne au Bénin, tandis que le Parlement débat de la révision du Code du numérique. Le contexte numérique pose des enjeux de liberté d’expression, de régulation des plateformes et de protection des journalistes. :contentReference[oaicite:13]{index=13}",
+    "points_clés": [
+      "Des journaux et sites internet suspendus par la HAAC (Haute Autorité de l’Audiovisuel et de la Communication) au début de 2025.",
+      "Les dispositions du Code du numérique font l’objet d’un débat sur leur impact sur la liberté d’expression à l’ère numérique.",
+      "Le contexte de digitalisation (plateformes, réseaux sociaux, IA) impose un nouveau regard sur la régulation de la presse numérique et des médias en ligne."
+    ],
+    "enjeux": "La protection de la liberté de la presse et des médias numériques est un élément clé de la démocratie et de l’État de droit. La façon dont le Bénin encadre les plateformes numériques, les réseaux sociaux et les algorithmes aura un impact direct sur la crédibilité de l’information, la confiance publique et l’investissement étranger dans les médias numériques.",
+    "actualité": "2 mai 2025 : l’alerte lancée par Amnesty International sur la pression exercée contre les médias, dans un contexte de révision du Code du numérique au Bénin.",
+    "références": [
+      "«Bénin. La vague d’attaques contre la liberté de la presse souligne l’urgence de réformer le Code du numérique». Amnesty International, 2 mai 2025."
+    ]
   }
 }
