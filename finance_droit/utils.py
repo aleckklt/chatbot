@@ -40,7 +40,7 @@ def search_local_knowledge(query, path="knowledge_base.json"):
         print(f"Impossible de lire la base locale : {e}")
         return None
 
-def ask_ollama(prompt):
+def ask_ollama(prompt, history=None):
     web_data = search_web_serpapi(prompt)
 
     if not web_data:
@@ -49,11 +49,10 @@ def ask_ollama(prompt):
     if not web_data:
         web_data = "Aucune information trouvée ni sur le web ni dans la base locale."
     context = f"Informations récentes trouvées sur le web :\n{web_data}"
-
     system_prompt = (
         "Tu es un assistant virtuel expert en finance et en droit, spécialisé dans l’analyse, "
         "l’explication et l’interprétation des informations juridiques et financières "
-        "à l’échelle mondiale.le code du numérique et rien d'autre dans aucun autre domaines.\n\n"
+        "à l’échelle mondiale.le code du numérique et rien d'autre dans aucun autre\n\n"
 
         "Mission principale :\n"
         "- Répondre uniquement aux questions concernant la finance, le code du numérique, l’économie, la fiscalité, "
@@ -80,12 +79,19 @@ def ask_ollama(prompt):
         "- Si la question est en anglais, réponds correctement dans cette langue."
     )
 
+    messages = [{"role": "system", "content": system_prompt}]
+
+    if history:
+        for conv in history:
+            if conv.user_message:
+                messages.append({"role": "user", "content": conv.user_message})
+            if conv.bot_reply:
+                messages.append({"role": "assistant", "content": conv.bot_reply})
+    messages.append({"role": "user", "content": prompt})
     response = client.chat(
         model="llama3",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": prompt},
-        ],
+        messages=messages,
         options={"temperature": 0.4}
     )
+
     return response["message"]["content"]
