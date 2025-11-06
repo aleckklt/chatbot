@@ -69,7 +69,7 @@ def ask_ollama(prompt, history=None):
         "- Tu ne peux pas traiter de sujets sans lien direct avec la finance ou le droit.\n"
         "- Si une question sort de ton domaine, réponds poliment que tu es limité aux thématiques financières et juridiques.\n\n"
 
-        f"{context}\n\n"
+        f"```{context}```\n\n"
 
         "Style attendu :\n"
         "- Structuré (introduction, développement, conclusion si nécessaire)\n"
